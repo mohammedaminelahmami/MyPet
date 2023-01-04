@@ -1,16 +1,21 @@
 package com.youcode.mypet.Controller.Auth;
 
+import com.youcode.mypet.Request.AuthRequest;
+import com.youcode.mypet.Service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v1/authentication")
 @RestController
 public class AuthController {
-    @PostMapping
-    public ResponseEntity<String> userAuth()
+
+    @Autowired
+    AuthService authService;
+
+    @PostMapping("/auth")
+    public ResponseEntity<?> userAuth(@RequestBody AuthRequest authRequest)
     {
-        return ResponseEntity.ok("Auth");
+        return authService.login(authRequest.getEmail(), authRequest.getPassword());
     }
 }

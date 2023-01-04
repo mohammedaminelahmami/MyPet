@@ -1,6 +1,8 @@
 package com.youcode.mypet.Security;
 
+import com.youcode.mypet.Entity.UserEntity;
 import com.youcode.mypet.Repository.UserDao;
+import com.youcode.mypet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,21 +30,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
-    private final UserDao userDao;
+    @Autowired
+    private JwtAuthFilter jwtAuthFilter;
 
     @Autowired
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDao userDao) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.userDao = userDao;
-    }
+    private UserService userService;
+
+//    @Autowired
+//    public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDao userDao) {
+//        this.jwtAuthFilter = jwtAuthFilter;
+//        this.userDao = userDao;
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/v1/auth/**").permitAll()
+            .requestMatchers("/api/v1/authentication/**").permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -76,7 +82,8 @@ public class SecurityConfig {
         return new UserDetailsService(){
             @Override
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                return userDao.findUserByEmail(email);
+                System.out.println("userDetailsService");
+                return userService.findUser(email);
             }
         };
     }
