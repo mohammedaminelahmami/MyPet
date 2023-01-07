@@ -1,11 +1,10 @@
 package com.youcode.mypet.Controller.Auth;
 
-import com.youcode.mypet.DTO.PostDTO;
 import com.youcode.mypet.Request.PostRequest;
-import com.youcode.mypet.Response.PostResponse;
 import com.youcode.mypet.Service.PostService;
-import org.springframework.beans.BeanUtils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +16,13 @@ public class PostController {
     PostService postService;
 
     @PostMapping("/post")
-    public ResponseEntity<PostResponse> save(@RequestBody PostRequest postRequest)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(@RequestBody @Valid PostRequest postRequest)
     {
-        PostDTO postDTO = postService.createPost(postRequest);
-
-        PostResponse postResponse = new PostResponse();
-
-        BeanUtils.copyProperties(postDTO, postResponse);
-        return ResponseEntity.ok(postResponse);
+        // postRequest --> // validation ---> {ExceptionClass}
+        // map postRequest to postEntity
+        // save postEntity
+        // if return : map postEntity to postResponse
     }
 
     @DeleteMapping("/posts/{id}")
