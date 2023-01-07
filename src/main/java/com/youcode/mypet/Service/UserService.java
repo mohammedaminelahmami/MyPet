@@ -22,8 +22,7 @@ public class UserService {
         // check password
 
         if(user != null) {
-            System.out.println("l9a l user");
-            return new User(user.getUsername(), user.getHashed_password(), new ArrayList<>());
+            return new User(user.getEmail(), user.getHashed_password(), new ArrayList<>());
         }else{
             throw  new UsernameNotFoundException(email);
         }
