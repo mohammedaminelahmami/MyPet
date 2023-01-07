@@ -19,7 +19,7 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public ResponseEntity<?> login(String email, String password){
+    public ResponseEntity<HashMap<String, String>> login(String email, String password) {
         HashMap<String, String> responseToken = new HashMap<>();
 
         authenticationManager.authenticate(
@@ -27,8 +27,7 @@ public class AuthService {
         );
 
         User user = userService.findUser(email);
-        if(user != null)
-        {
+        if (user != null) {
             responseToken.put("accessToken", jwtUtil.generateToken(user));
             return ResponseEntity.ok(responseToken);
         }

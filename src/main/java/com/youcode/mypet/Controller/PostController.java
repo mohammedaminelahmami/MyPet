@@ -1,8 +1,8 @@
-package com.youcode.mypet.Controller.Auth;
+package com.youcode.mypet.Controller;
 
 import com.youcode.mypet.Request.PostRequest;
 import com.youcode.mypet.Service.PostService;
-import jakarta.validation.Valid;
+import com.youcode.mypet.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +15,10 @@ public class PostController {
     @Autowired
     PostService postService;
 
-    @PostMapping("/post")
+    @PostMapping("/post/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody @Valid PostRequest postRequest)
-    {
-        // postRequest --> // validation ---> {ExceptionClass}
-        // map postRequest to postEntity
-        // save postEntity
-        // if return : map postEntity to postResponse
+    public void save(@PathVariable String id, @RequestBody PostRequest postRequest) throws Exception {
+        postService.createPost(postRequest, Long.parseLong(id));
     }
 
     @DeleteMapping("/posts/{id}")

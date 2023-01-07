@@ -20,11 +20,10 @@ public class UserService {
         UserEntity user = userRepository.findByEmail(email);
 
         // check password
-
         if(user != null) {
             return new User(user.getEmail(), user.getHashed_password(), new ArrayList<>());
         }else{
-            throw  new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException(email);
         }
     }
 }
