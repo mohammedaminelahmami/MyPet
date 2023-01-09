@@ -28,7 +28,6 @@ public class PostService {
 
     public void createPost(PostRequest postRequest, Long id) throws Exception {
         try {
-            // No Validation !!!!
             PostDTO postDTO = new PostDTO();
             BeanUtils.copyProperties(postRequest, postDTO);
             PostEntity post = mapper.convertToEntity(postDTO, PostEntity.class);

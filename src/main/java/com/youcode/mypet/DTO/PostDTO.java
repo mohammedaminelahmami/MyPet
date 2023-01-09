@@ -16,5 +16,3 @@ public class PostDTO {
     private float price;
     private int user_id;
 }
-
-// lombok build
