@@ -20,5 +20,6 @@ public class ReplyEntity {
     private int reply_dislikes;
 
     @ManyToOne
+    @JoinColumn(name = "comment_id")
     private CommentEntity comment;
 }

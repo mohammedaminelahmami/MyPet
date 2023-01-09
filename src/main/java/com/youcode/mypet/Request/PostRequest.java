@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class PostRequest {
 
-    private int user_id_user;
+    private int user_id;
 
     @NotNull(message = "title cannot be empty !")
     private String title;

@@ -26,6 +26,7 @@ public class CommentEntity {
     private int comment_dislikes;
 
     @ManyToOne
+    @JoinColumn(name = "post_id")
     private PostEntity post;
 
     @OneToMany(mappedBy = "comment")
