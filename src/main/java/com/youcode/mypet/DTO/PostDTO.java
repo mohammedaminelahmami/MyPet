@@ -14,7 +14,7 @@ public class PostDTO {
     private int num_days;
     private String images;
     private float price;
-    private int user_id_user;
+    private int user_id;
 }
 
 // lombok build

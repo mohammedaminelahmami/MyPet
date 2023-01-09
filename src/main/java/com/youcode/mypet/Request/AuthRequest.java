@@ -15,6 +15,6 @@ public class AuthRequest {
 
     @NotNull(message = "email cannot be null !")
     @NotBlank(message = "email cannot be empty !")
-    @Min(value = 6, message = "password must be at least 6 characters")
+    @Size(min = 6, max = 20, message = "password must be between 6 and 20 characters !")
     private String password;
 }

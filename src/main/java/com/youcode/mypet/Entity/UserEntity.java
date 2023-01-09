@@ -1,5 +1,6 @@
 package com.youcode.mypet.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "user", catalog = "mypet")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
@@ -36,6 +36,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<AnimalEntity> animals;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<PostEntity> posts;
 }

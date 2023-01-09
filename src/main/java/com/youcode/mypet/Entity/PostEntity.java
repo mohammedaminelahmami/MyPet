@@ -1,5 +1,6 @@
 package com.youcode.mypet.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +38,9 @@ public class PostEntity {
     @Column(name = "price")
     private float price;
 
+    @JsonBackReference
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @OneToMany(mappedBy = "post")

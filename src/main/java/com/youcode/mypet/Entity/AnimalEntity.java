@@ -32,6 +32,7 @@ public class AnimalEntity {
     private String images;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
 }
