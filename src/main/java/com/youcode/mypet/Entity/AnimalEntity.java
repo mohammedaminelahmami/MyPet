@@ -9,15 +9,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "animal", catalog = "mypet")
 public class AnimalEntity {
-    public enum TypeAnimal {Dog, Cat, Bird};
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_animal")
     private int id_animal;
 
     @Column(name = "type")
-    private TypeAnimal type;
+    private String type;
 
     @Column(name = "age")
     private int age;
@@ -34,5 +32,4 @@ public class AnimalEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
 }

@@ -28,14 +28,14 @@ public class AppExceptionHandler {
         return ResponseEntity.status(400).body(new Response("Please fallout your fields carefully : " + errors, 400));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public final ResponseEntity<Response> handleRuntimeExceptions(RuntimeException e) {
-        HashMap<String, String> errors = new HashMap<>();
-        errors.put("error", "Ops something went wrong!");
-        System.out.println(e);
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Ops something went wrong! : " + errors, 500));
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public final ResponseEntity<Response> handleRuntimeExceptions(RuntimeException e) {
+//        HashMap<String, String> errors = new HashMap<>();
+//        errors.put("error", "Ops something went wrong!");
+//        System.out.println(e);
+//
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Ops something went wrong! : " + errors, 500));
+//    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> handleException(Exception e) {
