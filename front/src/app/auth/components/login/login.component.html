@@ -22,22 +22,35 @@
                     </h4>
                   </div>
                 </div>
-                <form>
+                <form
+                  [formGroup]="loginForm"
+                  (ngSubmit)="loginuser(loginForm.value)"
+                >
                   <p class="mb-4">Please login to your account</p>
                   <div class="mb-4">
                     <input
                       type="email"
-                      class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      [ngClass]="{
+                        'border-red-500':
+                          email && email.invalid && email.touched
+                      }"
+                      class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none"
                       id="exampleFormControlInput1"
                       placeholder="Email"
+                      formControlName="email"
                     />
                   </div>
                   <div class="mb-4">
                     <input
                       type="password"
-                      class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      id="exampleFormControlInput1"
+                      [ngClass]="{
+                        'border-red-500':
+                          password && password.invalid && password.touched
+                      }"
+                      class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none"
+                      id="exampleFormControlInput2"
                       placeholder="Password"
+                      formControlName="password"
                     />
                   </div>
                   <div class="text-center pt-1 mb-12 pb-1">
@@ -49,7 +62,14 @@
                     >
                       Log in
                     </button>
-                    <a class="text-gray-500" href="#!">Forgot password?</a>
+                    <div class="text-gray-500" href="#!">
+                      Dont have an account ?
+                      <span
+                        routerLink="/register"
+                        class="text-primary font-semibold cursor-pointer"
+                        >Create one</span
+                      >
+                    </div>
                   </div>
                 </form>
               </div>
