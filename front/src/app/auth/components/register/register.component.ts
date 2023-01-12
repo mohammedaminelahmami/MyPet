@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { STATUS_CODES } from 'http';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
-  registerHandler(item: any) {
-    // console.log(item); call the service
+export class RegisterComponent implements OnInit {
+  constructor(private authService: AuthService, private navigation: Router) {}
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.navigation.navigate(['home']);
+    }
+  }
+
+  registerUserHandler(item: any) {
+    this.authService.register(item).subscribe(
+      (res) => {
+        this.navigation.navigate(['login']);
+      },
+      (err) => {
+        console.log(err.error.message);
+      }
+    );
   }
 
   // Start Validation
