@@ -1,16 +1,39 @@
+import { AuthService } from './../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  loginuser(item: any) {
-    // console.log(item); call the service
+export class LoginComponent implements OnInit {
+  token: string = '';
+
+  constructor(private authService: AuthService, private navigation: Router) {}
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.navigation.navigate(['home']);
+    }
   }
 
+  loginUserHandler(item: any) {
+    this.authService.login(item).subscribe(
+      (response) => {
+        // console.log(response);
+        this.token = response.accessToken;
+        localStorage.setItem('token', this.token);
+        this.navigation.navigate(['home']);
+      },
+      (err) => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  // validation
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -27,4 +50,5 @@ export class LoginComponent {
   get password() {
     return this.loginForm.get('password');
   }
+  // validation
 }
