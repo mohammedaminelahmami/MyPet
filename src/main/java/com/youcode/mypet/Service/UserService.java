@@ -49,4 +49,8 @@ public class UserService {
             throw new Exception("user already exist");
         }
     }
+
+    public int findUserIdByEmail(String email) {
+        return userRepository.findByEmail(email).getId_user();
+    }
 }

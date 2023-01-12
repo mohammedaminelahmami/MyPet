@@ -21,13 +21,14 @@ export class LoginComponent implements OnInit {
 
   loginUserHandler(item: any) {
     this.authService.login(item).subscribe(
-      (response) => {
+      (response: any) => {
         // console.log(response);
         this.token = response.accessToken;
         localStorage.setItem('token', this.token);
+        localStorage.setItem('id', response.id);
         this.navigation.navigate(['home']);
       },
-      (err) => {
+      (err: any) => {
         console.log(err.error.message);
       }
     );

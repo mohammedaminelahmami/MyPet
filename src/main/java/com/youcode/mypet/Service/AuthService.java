@@ -31,6 +31,7 @@ public class AuthService {
         User user = userService.findUser(email);
         if (user != null) {
             responseToken.put("accessToken", jwtUtil.generateToken(user));
+            responseToken.put("id", String.valueOf(userService.findUserIdByEmail(email)));
             return ResponseEntity.ok(responseToken);
         } else {
             responseToken.put("error token", "token has not generated");

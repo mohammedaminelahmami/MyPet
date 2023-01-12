@@ -9,6 +9,9 @@ import { FilterComponent } from './components/filter/filter.component';
 import { PostComponent } from './components/post/post.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { ReplyComponent } from './components/reply/reply.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './components/alert/alert.component';
+import { PostdetailsComponent } from './components/postdetails/postdetails.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,10 @@ import { ReplyComponent } from './components/reply/reply.component';
     PostComponent,
     CommentComponent,
     ReplyComponent,
+    AlertComponent,
+    PostdetailsComponent,
   ],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
   exports: [HomeComponent],
 })
 export class CoreModule {}
