@@ -1479,11 +1479,11 @@ export let cities = [
     ville: 'Sidi Lyamani',
     region: '1',
   },
-  {
-    id: '305',
-    ville: 'Sidi Mohamed ben Abdallah el-Raisuni',
-    region: '1',
-  },
+  // {
+  //   id: '305',
+  //   ville: 'Sidi Mohamed ben Abdallah el-Raisuni',
+  //   region: '1',
+  // },
   {
     id: '306',
     ville: 'Sidi Rahhal',

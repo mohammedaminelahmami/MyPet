@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.w3c.dom.Text;
 
+import java.awt.*;
+import java.sql.Blob;
 import java.util.List;
 
 @Getter
@@ -32,7 +36,8 @@ public class PostEntity {
     @Column(name = "num_days")
     private int num_days;
 
-    @Column(name = "images")
+    @Lob
+    @Column(name = "images", columnDefinition="TEXT", length = 2048)
     private String images;
 
     @Column(name = "price")

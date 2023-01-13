@@ -12,6 +12,7 @@ import { ReplyComponent } from './components/reply/reply.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './components/alert/alert.component';
 import { PostdetailsComponent } from './components/postdetails/postdetails.component';
+import { ModalEditPostComponent } from './components/modal-edit-post/modal-edit-post.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PostdetailsComponent } from './components/postdetails/postdetails.compo
     ReplyComponent,
     AlertComponent,
     PostdetailsComponent,
+    ModalEditPostComponent,
   ],
   imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
   exports: [HomeComponent],

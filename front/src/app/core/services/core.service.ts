@@ -33,4 +33,10 @@ export class CoreService {
       { headers: this.getAuthHeaders() }
     );
   }
+
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${baseUrl}/posts/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
 }

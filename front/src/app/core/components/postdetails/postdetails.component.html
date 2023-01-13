@@ -1,6 +1,6 @@
-<div *ngFor="let post of allposts" class="">
+<div *ngFor="let post of allposts; let i = index">
   <!-- Posts -->
-  <div class="mt-8 flex gap-10 items-center w-full">
+  <div class="mt-8 flex justify-between gap-10 items-center w-full">
     <div class="flex justify-between items-center gap-6">
       <div
         class="flex justify-between gap-3 items-center whitespace-nowrap my-4"
@@ -24,25 +24,59 @@
       <div class="text-sm text-gray-500">Feb. 8, 2022</div>
     </div>
 
-    <button
-      type="button"
-      class="justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-    >
-      <svg
-        aria-hidden="true"
-        class="w-5 h-5"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
+    <div class="relative">
+      <div (click)="toggleHandler(i)">
+        <div
+          *ngIf="post.user.id_user == userId"
+          class="justify-center p-2 rounded cursor-pointer text-gray-900 bg-gray-100"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">list</span>
+        </div>
+      </div>
+
+      <div
+        *ngIf="toggle[i]"
+        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="user-menu-button"
+        tabindex="-1"
       >
-        <path
-          fill-rule="evenodd"
-          d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-      <span class="sr-only">Add list</span>
-    </button>
+        <div
+          (click)="toggleModalF(i)"
+          href="#"
+          class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
+          role="menuitem"
+          tabindex="-1"
+          id="user-menu-item-0"
+        >
+          Edit Offer
+        </div>
+        <div
+          (click)="deletePost(post.id_post, i)"
+          href="#"
+          class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
+          role="menuitem"
+          tabindex="-1"
+          id="user-menu-item-0"
+        >
+          Delete Offer
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="bg-gray-100 rounded-md p-2">
@@ -58,22 +92,23 @@
     <!-- post_images -->
     <div class="w-full flex gap-4 p-2 justify-start items-center ml-2">
       <div class="w-36 h-36">
-        <img
-          src="assets/imgs/dog11.jpg"
-          alt="dog2"
-          class="w-full h-full rounded-md"
-        />
+        <img [src]="post.images" alt="dog2" class="w-full h-full rounded-md" />
       </div>
+      <!-- post_images -->
+      <!-- <i class="material-icons text-green-500">verified</i> -->
 
-      <div class="w-36 h-36">
-        <img
-          src="assets/imgs/dog1.jpg"
-          alt="dog1"
-          class="w-full h-full rounded-md"
-        />
-      </div>
+      <!-- modalEdit -->
+      <app-modal-edit-post
+        [modalToggle]="toggleModal[i]"
+        (callParent)="toggleModalF(i)"
+      ></app-modal-edit-post>
+      <!-- modalEdit -->
     </div>
-    <!-- post_images -->
+
+    <div class="flex gap-4">
+      <div></div>
+      <div><i class="material-icons text-gray-400">mode_comment</i></div>
+    </div>
     <!-- Posts -->
   </div>
 </div>

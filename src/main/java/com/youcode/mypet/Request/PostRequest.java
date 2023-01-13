@@ -1,10 +1,14 @@
 package com.youcode.mypet.Request;
 
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.Text;
+
+import java.sql.Blob;
 
 @Getter
 @Setter

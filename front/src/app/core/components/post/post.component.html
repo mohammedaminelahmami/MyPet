@@ -38,6 +38,7 @@
 
           <input
             (change)="onFileChange($event)"
+            formControlName="images"
             id="upload"
             type="file"
             class="hidden p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
@@ -48,6 +49,7 @@
           >
             upload images
           </label>
+          <img [src]="myimage" width="40" height="40" alt="testBase64" />
 
           <div class="flex items-center gap-2 whitespace-nowrap">
             <div class="font-semibold">Price</div>

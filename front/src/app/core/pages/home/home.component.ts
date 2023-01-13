@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  checkPageHeight: boolean = false;
+
   constructor(private navigation: Router) {}
 
   ngOnInit(): void {
