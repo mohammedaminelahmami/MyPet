@@ -9,7 +9,6 @@ import com.youcode.mypet.Repository.PostRepository;
 import com.youcode.mypet.Request.CommentRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,9 +75,8 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> getAllComment(int page, int limit) {
-        if(page > 0) page--;
-        List<CommentEntity> comments = commentRepository.findAll(PageRequest.of(page, limit)).getContent();
+    public List<CommentDTO> getAllCommentById(Integer id) {
+        List<CommentEntity> comments = (List<CommentEntity>) commentRepository.findByPostId(id);
         List<CommentDTO> postDTOS = mapper.convertListToListDto(comments, CommentDTO.class);
         return postDTOS;
     }

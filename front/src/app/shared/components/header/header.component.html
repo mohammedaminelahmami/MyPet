@@ -56,30 +56,36 @@
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a
-              href="#"
-              class="bg-primary text-white px-3 py-2 rounded-md text-sm font-medium"
+            <div
+              routerLink="/"
+              class="text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+              [ngClass]="{ '': !isHomePage }"
+              [ngClass]="{ 'bg-gray-700': isHomePage }"
               aria-current="page"
-              >Home</a
             >
+              Home
+            </div>
 
             <a
               href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >Team</a
             >
 
             <a
               href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              class="text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
               >Projects</a
             >
 
-            <a
-              href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >About us</a
+            <div
+              routerLink="/profile"
+              class="text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+              [ngClass]="{ '': !isProfilePage }"
+              [ngClass]="{ 'bg-gray-700': isProfilePage }"
             >
+              View Profile
+            </div>
           </div>
         </div>
       </div>

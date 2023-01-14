@@ -1,5 +1,6 @@
 package com.youcode.mypet.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class ReplyEntity {
     @Column(name = "reply_dislikes")
     private int reply_dislikes;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private CommentEntity comment;

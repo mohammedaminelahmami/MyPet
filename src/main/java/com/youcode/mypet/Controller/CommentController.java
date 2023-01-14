@@ -37,14 +37,14 @@ public class CommentController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/comments/{id}")
+    @GetMapping("/comment/{id}")
     public CommentDTO getOne(@PathVariable String id) throws Exception {
         return commentService.getOneComment(Long.parseLong(id));
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/comments")
-    public List<CommentDTO> getAll(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "limit", defaultValue = "8") int limit) {
-        return commentService.getAllComment(page, limit);
+    @GetMapping("/comments/{id}")
+    public List<CommentDTO> getAllById(@PathVariable Integer id) {
+        return commentService.getAllCommentById(id);
     }
 }

@@ -24,37 +24,20 @@ export class PostdetailsComponent implements OnInit {
   allposts: any = [];
   userId: any = localStorage.getItem('id');
   checkStillOpen: boolean = false;
+  getOne: any = [];
   // openModalDiv: any = document.getElementById('openModalDiv');
 
-  toggle: boolean[] = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  toggle: boolean[] = [false, false, false, false, false, false, false];
 
-  toggleModal: boolean[] = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
+  toggleModal: boolean[] = [false, false, false, false, false, false, false];
 
-  toggleModalF(index: number): void {
+  toggleOffer: boolean[] = [false, false, false, false, false, false, false];
+
+  toggleModalF(index: number, idpost: string): void {
     this.toggleModal[index] = !this.toggleModal[index];
     this.toggle[index] = false;
+    this.getOneP(idpost);
+    localStorage.setItem('idPost', idpost);
   }
 
   toggleHandler(index: number): void {
@@ -67,11 +50,24 @@ export class PostdetailsComponent implements OnInit {
       this.toggleModal.includes(true) &&
       event.target &&
       (event.target as HTMLElement).id !== 'editpost' &&
+      (event.target as HTMLElement).id !== 'upload' &&
       !this.elementRef.nativeElement.contains(event.target)
     ) {
       // console.log('outside click');
       this.toggleModal = this.toggleModal.map((item: boolean) => false);
     }
+  }
+
+  getOneP(idpost: string) {
+    this.coreService.getOnePosetById(idpost).subscribe(
+      (res) => {
+        this.getOne = res;
+        // console.log('data', this.getOne);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   // togglePost(idPost: number): void {
@@ -101,7 +97,7 @@ export class PostdetailsComponent implements OnInit {
     );
   }
 
-  commentHandler(): void {
-    console.log('comment clicked');
+  commentHandler(index: number): void {
+    this.toggleOffer[index] = !this.toggleOffer[index];
   }
 }

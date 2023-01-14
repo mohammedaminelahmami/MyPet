@@ -49,7 +49,7 @@
           >
             upload images
           </label>
-          <img [src]="myimage" width="40" height="40" />
+          <img *ngIf="myimage" [src]="myimage" width="40" height="40" />
 
           <div class="flex items-center gap-2 whitespace-nowrap">
             <div class="font-semibold">Price</div>

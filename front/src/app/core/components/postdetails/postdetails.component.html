@@ -1,6 +1,6 @@
 <div *ngFor="let post of allposts; let i = index">
   <!-- Posts -->
-  <div class="mt-8 flex justify-between gap-10 items-center w-full">
+  <div class="mt-8 flex justify-between gap-36 items-center w-full">
     <div class="flex justify-between items-center gap-6">
       <div
         class="flex justify-between gap-3 items-center whitespace-nowrap my-4"
@@ -56,7 +56,7 @@
         tabindex="-1"
       >
         <div
-          (click)="toggleModalF(i)"
+          (click)="toggleModalF(i, post.id_post)"
           href="#"
           class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
           role="menuitem"
@@ -80,7 +80,7 @@
   </div>
 
   <div class="bg-gray-100 rounded-md p-2">
-    <h6 class="font-semibold">{{ post.title }}</h6>
+    <h6 class="text-xl font-semibold">{{ post.title }}</h6>
     <!-- post_body -->
     <div class="mx-2" style="width: 50rem">
       <h6 class="p-2 text-sm">
@@ -101,19 +101,33 @@
       <div class="content z-50">
         <app-modal-edit-post
           [modalToggle]="toggleModal[i]"
-          (callParent)="toggleModalF(i)"
+          [getOnePost]="getOne"
+          (callParent)="toggleModalF(i, post.id_post)"
         ></app-modal-edit-post>
       </div>
       <!-- modalEdit -->
     </div>
 
     <div
-      (click)="commentHandler()"
+      (click)="commentHandler(i)"
       class="flex gap-2 text-gray-400 mt-4 ml-4 hover:underline"
     >
       <div><i class="material-icons cursor-pointer">mode_comment</i></div>
       <div class="text-sm font-semibold cursor-pointer">Offers</div>
     </div>
     <!-- Posts -->
+
+    <!-- get All Offers -->
+    <app-offer
+      [postId]="post.id_post"
+      [toggleClickOffer]="toggleOffer[i]"
+    ></app-offer>
+    <!-- get All Offers -->
+
+    <!-- Comments -->
+    <div class="my-2">
+      <app-comment></app-comment>
+    </div>
+    <!-- Comments -->
   </div>
 </div>

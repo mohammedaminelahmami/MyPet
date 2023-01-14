@@ -1,6 +1,7 @@
 package com.youcode.mypet.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,7 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "post")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 }

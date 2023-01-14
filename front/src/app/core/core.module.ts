@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './components/alert/alert.component';
 import { PostdetailsComponent } from './components/postdetails/postdetails.component';
 import { ModalEditPostComponent } from './components/modal-edit-post/modal-edit-post.component';
+import { OfferComponent } from './components/offer/offer.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ModalEditPostComponent } from './components/modal-edit-post/modal-edit-
     AlertComponent,
     PostdetailsComponent,
     ModalEditPostComponent,
+    OfferComponent,
+    ProfileComponent,
   ],
   imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
   exports: [HomeComponent],

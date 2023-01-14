@@ -1,5 +1,7 @@
 package com.youcode.mypet.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,10 +27,12 @@ public class CommentEntity {
     @Column(name = "comment_dislikes")
     private int comment_dislikes;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "post_id")
     private PostEntity post;
 
-    @OneToMany(mappedBy = "comment")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<ReplyEntity> replies;
 }

@@ -3,7 +3,7 @@ import { category } from './../../interfaces/types';
 import { cities } from './../../interfaces/cities';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CoreService } from './../../services/core.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Post } from '../../interfaces/post';
 
 @Component({
@@ -25,7 +25,7 @@ export class PostComponent implements OnInit {
   offerCreated: boolean = false;
   changeDetect: boolean = false;
 
-  images: string[] = [];
+  images: string = '';
 
   postFormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -62,7 +62,7 @@ export class PostComponent implements OnInit {
     });
     observable.subscribe((d) => {
       this.myimage = d;
-      this.images.push(d);
+      this.images = d;
     });
   }
 
@@ -83,7 +83,7 @@ export class PostComponent implements OnInit {
 
   createPostHandler(formgroup: FormGroup) {
     const body: Post = formgroup.value;
-    body.images = this.images.join('');
+    body.images = this.images;
     console.log(body);
     if (
       formgroup.valid &&
@@ -102,7 +102,7 @@ export class PostComponent implements OnInit {
           this.postFormGroup.get('images')?.setValue('');
           this.offerCreated = true;
           this.getAllPosts(); // Recall Api
-          this.images = [];
+          this.images = '';
         },
         (err: any) => {
           console.log(err);
@@ -112,7 +112,7 @@ export class PostComponent implements OnInit {
   }
 
   getAllPosts() {
-    this.coreService.getAllPost({ page: 1, limit: 10 }).subscribe(
+    this.coreService.getAllPost({ page: 1, limit: 7 }).subscribe(
       (res) => {
         // console.log(res);
         this.posts = res;
