@@ -1,5 +1,11 @@
 import { CoreService } from './../../services/core.service';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-postdetails',
@@ -9,11 +15,16 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 export class PostdetailsComponent implements OnInit {
   ngOnInit(): void {}
 
-  constructor(private coreService: CoreService) {}
+  constructor(
+    private coreService: CoreService,
+    private elementRef: ElementRef
+  ) {}
 
   @Input()
   allposts: any = [];
   userId: any = localStorage.getItem('id');
+  checkStillOpen: boolean = false;
+  // openModalDiv: any = document.getElementById('openModalDiv');
 
   toggle: boolean[] = [
     false,
@@ -50,6 +61,19 @@ export class PostdetailsComponent implements OnInit {
     this.toggle[index] = !this.toggle[index];
   }
 
+  @HostListener('document:click', ['$event'])
+  public onClick(event: MouseEvent): void {
+    if (
+      this.toggleModal.includes(true) &&
+      event.target &&
+      (event.target as HTMLElement).id !== 'editpost' &&
+      !this.elementRef.nativeElement.contains(event.target)
+    ) {
+      // console.log('outside click');
+      this.toggleModal = this.toggleModal.map((item: boolean) => false);
+    }
+  }
+
   // togglePost(idPost: number): void {
   //   this.toggle = !this.toggle;
   // }
@@ -75,5 +99,9 @@ export class PostdetailsComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  commentHandler(): void {
+    console.log('comment clicked');
   }
 }

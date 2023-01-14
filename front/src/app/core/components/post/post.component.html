@@ -49,12 +49,12 @@
           >
             upload images
           </label>
-          <img [src]="myimage" width="40" height="40" alt="testBase64" />
+          <img [src]="myimage" width="40" height="40" />
 
           <div class="flex items-center gap-2 whitespace-nowrap">
             <div class="font-semibold">Price</div>
             <input
-              type="text"
+              type="number"
               placeholder="Enter amount in USD"
               class="p-2 rounded-md"
               formControlName="price"
@@ -64,7 +64,7 @@
           <div class="flex items-center gap-2 whitespace-nowrap">
             <div class="font-semibold">Number of days</div>
             <input
-              type="text"
+              type="number"
               placeholder="days"
               class="p-2 rounded-md"
               formControlName="num_days"
@@ -111,9 +111,7 @@
   </form>
 
   <!-- Posts -->
-  <div>
-    <app-postdetails [allposts]="posts"></app-postdetails>
-  </div>
+  <app-postdetails [allposts]="posts"></app-postdetails>
   <!-- Posts -->
 
   <!-- comments -->

@@ -25,7 +25,7 @@
     </div>
 
     <div class="relative">
-      <div (click)="toggleHandler(i)">
+      <div (click)="toggleHandler(i)" id="openModalDiv">
         <div
           *ngIf="post.user.id_user == userId"
           class="justify-center p-2 rounded cursor-pointer text-gray-900 bg-gray-100"
@@ -61,9 +61,9 @@
           class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
           role="menuitem"
           tabindex="-1"
-          id="user-menu-item-0"
+          id="editpost"
         >
-          Edit Offer
+          Edit Post
         </div>
         <div
           (click)="deletePost(post.id_post, i)"
@@ -73,7 +73,7 @@
           tabindex="-1"
           id="user-menu-item-0"
         >
-          Delete Offer
+          Delete Post
         </div>
       </div>
     </div>
@@ -98,16 +98,21 @@
       <!-- <i class="material-icons text-green-500">verified</i> -->
 
       <!-- modalEdit -->
-      <app-modal-edit-post
-        [modalToggle]="toggleModal[i]"
-        (callParent)="toggleModalF(i)"
-      ></app-modal-edit-post>
+      <div class="content z-50">
+        <app-modal-edit-post
+          [modalToggle]="toggleModal[i]"
+          (callParent)="toggleModalF(i)"
+        ></app-modal-edit-post>
+      </div>
       <!-- modalEdit -->
     </div>
 
-    <div class="flex gap-4">
-      <div></div>
-      <div><i class="material-icons text-gray-400">mode_comment</i></div>
+    <div
+      (click)="commentHandler()"
+      class="flex gap-2 text-gray-400 mt-4 ml-4 hover:underline"
+    >
+      <div><i class="material-icons cursor-pointer">mode_comment</i></div>
+      <div class="text-sm font-semibold cursor-pointer">Offers</div>
     </div>
     <!-- Posts -->
   </div>
