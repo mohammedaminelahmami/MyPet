@@ -22,17 +22,21 @@
             alt=""
           />
         </button>
-        <div class="text-gray-800">
-          <span class="font-semibold">{{ offer.user.username }} : </span>
-          <span class="text-sm">{{ offer.comment_body }}</span>
+        <div class="flex items-center">
+          <div class="text-gray-800">
+            <span class="font-semibold">{{ offer.user.username }} : </span>
+            <span class="text-sm">{{ offer.comment_body }}</span>
+          </div>
+
+          <div *ngIf="offer.user.id_user == userId" (click)="deleteOffer(offer.id_comment)" class="absolute text-sm text-black cursor-pointer font-semibold text-red-500" style="right: 29%"><i class="material-icons">delete</i></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-  <!-- create offer -->
-  <div class="my-2">
-    <app-comment [postIdFromComment]="postId" (callParent)="recallAfterChanges()"></app-comment>
-  </div>
-  <!-- create offer -->
+<!-- create offer -->
+<div class="my-2">
+  <app-comment [postIdFromComment]="postId" (callParent)="recallAfterChanges()"></app-comment>
+</div>
+<!-- create offer -->

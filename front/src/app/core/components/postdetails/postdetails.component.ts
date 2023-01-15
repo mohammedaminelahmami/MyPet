@@ -22,7 +22,7 @@ export class PostdetailsComponent implements OnInit {
 
   @Input()
   allposts: any = [];
-  
+
   userId: any = localStorage.getItem('id');
   checkStillOpen: boolean = false;
   getOne: any = [];

@@ -1,6 +1,5 @@
 import { cities } from './../../interfaces/cities';
 import { category } from './../../interfaces/types';
-import { FormGroup, FormControl } from '@angular/forms';
 import { CoreService } from './../../services/core.service';
 import {
   Component,
@@ -8,8 +7,9 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  OnChanges,
+  OnChanges, SimpleChanges,
 } from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-modal-edit-post',
@@ -21,44 +21,38 @@ export class ModalEditPostComponent implements OnInit, OnChanges {
   alltypes: any = category;
 
   constructor(private coreService: CoreService) {}
+  ngOnInit() {}
+  ngOnChanges(changes:SimpleChanges): void {}
 
-  ngOnChanges(changes: any): void {}
-
-  ngOnInit(): void {}
-
-  @Input()
-  modalToggle: boolean = false;
-
-  @Input()
-  getOnePost: any = [];
-
-  @Output()
-  callParent = new EventEmitter();
+  @Input() modalToggle: boolean = false;
+  @Input() getOnePost: any = [];
+  @Output() callParent = new EventEmitter();
 
   toggleModalF() {
     this.callParent.emit();
   }
 
-  formGroupEdit = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
-    price: new FormControl(''),
-    num_days: new FormControl(''),
-    city: new FormControl(''),
-    type: new FormControl(''),
+  formGroupEdit: FormGroup = new FormGroup({
+    title: new FormControl(this.getOnePost.title),
+    description: new FormControl(this.getOnePost.description),
+    type: new FormControl(this.getOnePost.type),
+    city: new FormControl(this.getOnePost.city),
+    price: new FormControl(this.getOnePost.price),
+    images: new FormControl(this.getOnePost.images),
+    num_days: new FormControl(this.getOnePost.num_days),
   });
 
-  submitFormEdit(formGroup: FormGroup): void {
-    console.log(formGroup.value);
-    this.coreService
-      .updatePost(localStorage.getItem('idPost')!, formGroup.value)
-      .subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  submitFormEdit(): void {
+    console.log(this.formGroupEdit.value);
+    // this.coreService
+    //   .updatePost(localStorage.getItem('idPost')!, formGroup.value)
+    //   .subscribe(
+    //     (res) => {
+    //       console.log(res);
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //     }
+    //   );
   }
 }

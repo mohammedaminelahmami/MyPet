@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./offer.component.css'],
 })
 export class OfferComponent implements OnInit {
+  userId: any = localStorage.getItem('id');
   @Input()
   postId: string = '';
 
@@ -38,7 +39,17 @@ export class OfferComponent implements OnInit {
     );
   }
 
-  
+  deleteOffer(id_comment: string): void {
+    this.coreService.deleteOffer(id_comment).subscribe(
+      (res) => {
+        console.log(res);
+        this.recallAfterChanges();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
 
 }

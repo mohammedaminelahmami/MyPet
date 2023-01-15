@@ -66,5 +66,11 @@ export class CoreService {
       headers: this.getAuthHeaders(),
     });
   }
+
+  deleteOffer(id: string): Observable<any> {
+    return this.http.delete(`${baseUrl}/comments/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
   // End Offer
 }
