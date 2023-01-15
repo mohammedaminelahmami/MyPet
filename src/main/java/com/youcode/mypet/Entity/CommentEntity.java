@@ -35,4 +35,9 @@ public class CommentEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<ReplyEntity> replies;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }

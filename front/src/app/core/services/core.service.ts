@@ -62,7 +62,7 @@ export class CoreService {
   }
 
   createOffer(id: string, body: any): Observable<any> {
-    return this.http.post(`${baseUrl}/comment/${id}`, body, {
+    return this.http.post(`${baseUrl}/comment/${id}/${localStorage.getItem("id")}`, body, {
       headers: this.getAuthHeaders(),
     });
   }

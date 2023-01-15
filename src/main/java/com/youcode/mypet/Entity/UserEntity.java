@@ -39,4 +39,8 @@ public class UserEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PostEntity> posts;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CommentEntity> comments;
 }

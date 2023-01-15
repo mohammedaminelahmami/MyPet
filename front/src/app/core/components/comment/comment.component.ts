@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CoreService } from './../../services/core.service';
-import { Component, Output } from '@angular/core';
+import { Component, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-comment',
@@ -10,7 +10,15 @@ import { Component, Output } from '@angular/core';
 export class CommentComponent {
   constructor(private coreService: CoreService) {}
 
-  idPost: string = '';
+  @Input()
+  postIdFromComment: string = '';
+
+  @Output()
+  callParent = new EventEmitter();
+
+  functionCalledFromParent(): void {
+    this.callParent.emit();
+  }
 
   formGroupComment = new FormGroup({
     comment_body: new FormControl('', [Validators.required]),
@@ -18,10 +26,11 @@ export class CommentComponent {
 
   submitNewComment(formGroup: FormGroup): void {
     if (formGroup.valid) {
-      this.coreService.createOffer(this.idPost, formGroup.value).subscribe(
+      this.coreService.createOffer(this.postIdFromComment, formGroup.value).subscribe(
         (res) => {
-          console.log(res);
+          console.log("postIdcomment => ",this.postIdFromComment)
           this.formGroupComment.reset();
+          this.functionCalledFromParent();
         },
         (err) => {
           console.log(err);

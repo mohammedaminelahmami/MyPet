@@ -19,13 +19,17 @@ export class OfferComponent implements OnInit {
     this.getAllOffers();
   }
 
+  recallAfterChanges(): void {
+    this.getAllOffers();
+  }
+
   constructor(private coreService: CoreService) {}
 
   // getAllComments
   getAllOffers() {
     this.coreService.getAllOffers(this.postId).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.allOffers = res;
       },
       (err) => {
@@ -33,4 +37,8 @@ export class OfferComponent implements OnInit {
       }
     );
   }
+
+  
+
+
 }

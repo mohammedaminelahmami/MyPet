@@ -4,8 +4,10 @@ import com.youcode.mypet.DTO.CommentDTO;
 import com.youcode.mypet.DTO.mapper.IMapperDto;
 import com.youcode.mypet.Entity.CommentEntity;
 import com.youcode.mypet.Entity.PostEntity;
+import com.youcode.mypet.Entity.UserEntity;
 import com.youcode.mypet.Repository.CommentRepository;
 import com.youcode.mypet.Repository.PostRepository;
+import com.youcode.mypet.Repository.UserRepository;
 import com.youcode.mypet.Request.CommentRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +25,29 @@ public class CommentService {
     PostRepository postRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     IMapperDto<CommentDTO, CommentEntity> mapper;
 
-    public void createComment(CommentRequest commentRequest, Long id) throws Exception {
+    public void createComment(CommentRequest commentRequest, Long id, Long idUser) throws Exception {
         try {
             CommentDTO commentDTO = new CommentDTO();
             BeanUtils.copyProperties(commentRequest, commentDTO);
+
             CommentEntity comment = mapper.convertToEntity(commentDTO, CommentEntity.class);
 
             Optional<PostEntity> post = postRepository.findById(id);
+            Optional<UserEntity> user = userRepository.findById(idUser);
 
+            if(user.isPresent())
+            {
+                comment.setUser(user.get());
+            }
+            else
+            {
+                throw new Exception("User not found");
+            }
             if(post.isPresent()) {
                 comment.setPost(post.get());
             }else{

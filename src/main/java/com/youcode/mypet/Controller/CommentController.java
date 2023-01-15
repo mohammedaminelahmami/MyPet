@@ -18,10 +18,10 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/comment/{id}")
+    @PostMapping("/comment/{id}/{idUser}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@PathVariable String id, @RequestBody @Valid CommentRequest commentRequest) throws Exception {
-        commentService.createComment(commentRequest, Long.parseLong(id));
+    public void save(@PathVariable String id, @PathVariable String idUser, @RequestBody @Valid CommentRequest commentRequest) throws Exception {
+        commentService.createComment(commentRequest, Long.parseLong(id), Long.parseLong(idUser));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
