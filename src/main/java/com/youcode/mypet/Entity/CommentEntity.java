@@ -27,6 +27,9 @@ public class CommentEntity {
     @Column(name = "comment_dislikes")
     private int comment_dislikes;
 
+    @Column(name = "comment_isVerified", columnDefinition = "boolean default false")
+    private boolean comment_isVerified;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "post_id")

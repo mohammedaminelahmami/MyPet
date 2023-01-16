@@ -60,7 +60,7 @@ export class PostdetailsComponent implements OnInit {
   }
 
   getOneP(idpost: string) {
-    this.coreService.getOnePosetById(idpost).subscribe(
+    this.coreService.getOnePostById(idpost).subscribe(
       (res) => {
         this.getOne = res;
         // console.log('data', this.getOne);

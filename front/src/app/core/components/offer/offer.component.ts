@@ -1,5 +1,5 @@
-import { CoreService } from './../../services/core.service';
-import { Component, Input, OnInit } from '@angular/core';
+import {CoreService} from './../../services/core.service';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-offer',
@@ -8,11 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OfferComponent implements OnInit {
   userId: any = localStorage.getItem('id');
-  @Input()
-  postId: string = '';
-
-  @Input()
-  toggleClickOffer: boolean = false;
+  checkPostIsVerified: boolean = false;
+  @Input() postId: string = '';
+  @Input() toggleClickOffer: boolean = false;
+  toggleVerifyOffer: boolean = false;
 
   allOffers: any = [];
 
@@ -24,14 +23,15 @@ export class OfferComponent implements OnInit {
     this.getAllOffers();
   }
 
-  constructor(private coreService: CoreService) {}
+  constructor(private coreService: CoreService) {
+  }
 
   // getAllComments
   getAllOffers() {
     this.coreService.getAllOffers(this.postId).subscribe(
       (res) => {
-        // console.log(res);
         this.allOffers = res;
+        this.allOffers.map((item: { comment_isVerified: boolean; }) => item.comment_isVerified ? this.checkPostIsVerified = true : false)
       },
       (err) => {
         console.log(err);
@@ -49,6 +49,18 @@ export class OfferComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  verifyOffer(id_comment: string): void {
+      this.coreService.verifyOffer(id_comment).subscribe(
+        (res) => {
+          console.log(res);
+          this.recallAfterChanges();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
 

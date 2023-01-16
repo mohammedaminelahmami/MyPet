@@ -35,7 +35,7 @@ export class CoreService {
     );
   }
 
-  getOnePosetById(idpost: string): Observable<any> {
+  getOnePostById(idpost: string): Observable<any> {
     return this.http.get(`${baseUrl}/posts/${idpost}`, {
       headers: this.getAuthHeaders(),
     });
@@ -72,5 +72,12 @@ export class CoreService {
       headers: this.getAuthHeaders(),
     });
   }
+
+  verifyOffer(id: string): Observable<any> {
+    return this.http.put(`${baseUrl}/comments/verified/${id}`, {}, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
   // End Offer
 }

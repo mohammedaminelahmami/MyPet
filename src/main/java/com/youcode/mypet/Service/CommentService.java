@@ -95,4 +95,15 @@ public class CommentService {
         List<CommentDTO> postDTOS = mapper.convertListToListDto(comments, CommentDTO.class);
         return postDTOS;
     }
+
+    public void verifyComment(Long id) throws Exception {
+        Optional<CommentEntity> comment = commentRepository.findById(id);
+
+        if(comment.isPresent()) {
+            comment.get().setComment_isVerified(true);
+            commentRepository.save(comment.get());
+        }else{
+            throw new Exception("id not valid");
+        }
+    }
 }

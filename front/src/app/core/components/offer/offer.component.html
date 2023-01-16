@@ -3,6 +3,7 @@
     *ngFor="let offer of allOffers; let i = index"
     class="flex ml-8 p-2 bg-gray-300 rounded-md"
     style="width: 90%"
+    [ngClass]="{'bg-blue-300' : offer.comment_isVerified}"
   >
     <div class="flex justify-between items-center gap-6">
       <div
@@ -22,6 +23,7 @@
             alt=""
           />
         </button>
+
         <div class="flex items-center">
           <div class="text-gray-800">
             <span class="font-semibold">{{ offer.user.username }} : </span>
@@ -29,14 +31,24 @@
           </div>
 
           <div *ngIf="offer.user.id_user == userId" (click)="deleteOffer(offer.id_comment)" class="absolute text-sm text-black cursor-pointer font-semibold text-red-500" style="right: 29%"><i class="material-icons">delete</i></div>
+
+          <div *ngIf="postId === offer.post.id_post">
+            <div *ngIf="offer.user.id_user != userId" (click)="verifyOffer(offer.id_comment)" class="absolute text-sm text-black cursor-pointer font-semibold text-green-500" style="right: 29%"><i class="material-icons text-blue-700">verified</i></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!--Offer Locked -->
+<div *ngIf="checkPostIsVerified">
+  <div class="flex items-center mt-4 gap-2 text-sm font-semibold"><i class="material-icons text-primary">lock_outline</i> Offer Locked</div>
+</div>
+<!--Offer Locked -->
+
 <!-- create offer -->
-<div class="my-2">
+<div *ngIf="!checkPostIsVerified" class="my-2">
   <app-comment [postIdFromComment]="postId" (callParent)="recallAfterChanges()"></app-comment>
 </div>
 <!-- create offer -->

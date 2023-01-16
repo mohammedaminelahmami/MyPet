@@ -5,11 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.w3c.dom.Text;
-
-import java.awt.*;
-import java.sql.Blob;
 import java.util.List;
 
 @Getter

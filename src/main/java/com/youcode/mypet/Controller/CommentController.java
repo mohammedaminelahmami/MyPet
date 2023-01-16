@@ -36,6 +36,12 @@ public class CommentController {
         commentService.updateComment(Long.parseLong(id), commentRequest);
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/comments/verified/{id}")
+    public void getAllById(@PathVariable String id) throws Exception {
+        commentService.verifyComment(Long.parseLong(id));
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/comment/{id}")
     public CommentDTO getOne(@PathVariable String id) throws Exception {
@@ -47,4 +53,5 @@ public class CommentController {
     public List<CommentDTO> getAllById(@PathVariable Integer id) {
         return commentService.getAllCommentById(id);
     }
+
 }
