@@ -5,6 +5,7 @@ import com.youcode.mypet.DTO.mapper.IMapperDto;
 import com.youcode.mypet.Entity.UserEntity;
 import com.youcode.mypet.Repository.UserRepository;
 import com.youcode.mypet.Request.RegisterRequest;
+import com.youcode.mypet.Request.UserRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -62,6 +63,17 @@ public class UserService {
         if(user.isPresent()) {
             UserDTO userDto = mapper.convertToDTO(user.get(), UserDTO.class);
             return userDto;
+        }else{
+            throw new Exception("id not valid");
+        }
+    }
+
+    public void updateUser(Long id, UserRequest userRequest) throws Exception {
+        Optional<UserEntity> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            UserEntity userEntity = user.get();
+            BeanUtils.copyProperties(userRequest, userEntity);
+            userRepository.save(userEntity);
         }else{
             throw new Exception("id not valid");
         }

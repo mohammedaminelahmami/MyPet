@@ -1,4 +1,47 @@
-<div class="bg-gray-50">
+<div class="bg-gray-50" style="height: 100vh">
   <app-header></app-header>
+  <div class="flex flex-col items-center gap-4 mt-10">
+    <img src="assets/imgs/profile.png" class="w-32 h-32 rounded-full">
+    <h1 class="text-2xl font-medium">{{ getUser.username }}</h1>
+  </div>
+
+  <div class="w-100 flex justify-center">
+    <form (ngSubmit)="updateUser()" [formGroup]="formGroup" class="w-1/4 mt-10 flex flex-col justify-center">
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-2" for="username">Username</label>
+        <input
+          class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-primaryhover"
+          id="username" type="text" formControlName="username"
+        >
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
+        <input
+          class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-primaryhover"
+          id="email" type="email" formControlName="email"
+        >
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
+        <input
+          class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-primaryhover"
+          id="password" type="password" formControlName="password"
+        >
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 font-medium mb-2" for="phone">Phone</label>
+        <input
+          class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-primaryhover"
+          id="phone" type="tel" formControlName="phone"
+        >
+      </div>
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">Edit Profile</button>
+
+    </form>
+  </div>
+
 </div>
 <app-footer></app-footer>

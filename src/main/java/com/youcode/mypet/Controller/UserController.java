@@ -3,6 +3,7 @@ package com.youcode.mypet.Controller;
 import com.youcode.mypet.DTO.AnimalDTO;
 import com.youcode.mypet.DTO.UserDTO;
 import com.youcode.mypet.Request.AnimalRequest;
+import com.youcode.mypet.Request.UserRequest;
 import com.youcode.mypet.Service.AnimalService;
 import com.youcode.mypet.Service.UserService;
 import jakarta.validation.Valid;
@@ -32,11 +33,11 @@ public class UserController {
 //        animalService.deleteAnimal(Long.parseLong(id));
 //    }
 
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    @PutMapping("/users/{id}")
-//    public void update(@PathVariable String id, @RequestBody @Valid AnimalRequest animalRequest) throws Exception {
-//        animalService.updateAnimal(Long.parseLong(id), animalRequest);
-//    }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/users/{id}")
+    public void update(@PathVariable String id, @RequestBody @Valid UserRequest userRequest) throws Exception {
+        userService.updateUser(Long.parseLong(id), userRequest);
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{id}")

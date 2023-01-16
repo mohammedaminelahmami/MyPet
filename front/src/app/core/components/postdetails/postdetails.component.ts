@@ -20,14 +20,10 @@ export class PostdetailsComponent implements OnInit {
     private elementRef: ElementRef
   ) {}
 
-  @Input()
-  allposts: any = [];
+  @Input() allposts: any = [];
 
   userId: any = localStorage.getItem('id');
-  checkStillOpen: boolean = false;
   getOne: any = [];
-  // openModalDiv: any = document.getElementById('openModalDiv');
-
   toggle: boolean[] = [false, false, false, false, false, false, false];
 
   toggleModal: boolean[] = [false, false, false, false, false, false, false];
@@ -69,16 +65,6 @@ export class PostdetailsComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  // togglePost(idPost: number): void {
-  //   this.toggle = !this.toggle;
-  // }
-
-  editPost(idPost: number): void {
-    // this.coreService.editPost(idPost).subscribe((res: any) => {
-    //   console.log(res);
-    // });
   }
 
   deletePost(idPost: number, index: number): void {

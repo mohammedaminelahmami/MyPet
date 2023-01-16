@@ -78,6 +78,18 @@ export class CoreService {
       headers: this.getAuthHeaders(),
     });
   }
-
   // End Offer
+
+  // User
+  getOneUserById(id: string): Observable<any> {
+    return this.http.get(`${baseUrl}/users/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  updateUser(id: string, body: any): Observable<any> {
+    return this.http.put(`${baseUrl}/users/${id}`, body, {
+      headers: this.getAuthHeaders(),
+    });
+  }
 }

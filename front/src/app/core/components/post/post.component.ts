@@ -3,7 +3,7 @@ import { category } from './../../interfaces/types';
 import { cities } from './../../interfaces/cities';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CoreService } from './../../services/core.service';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from '../../interfaces/post';
 
 @Component({
