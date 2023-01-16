@@ -1,3 +1,4 @@
+import { ProfileComponent } from './core/pages/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,12 +8,9 @@ import { RegisterComponent } from './auth/components/register/register.component
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  // {path: "about", component: AboutComponent},
-  // {path: "contact", component: ContactComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // {path: "profile", component: ProfileComponent},
-  // {path: "dashboard", component: DashboardComponent},
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

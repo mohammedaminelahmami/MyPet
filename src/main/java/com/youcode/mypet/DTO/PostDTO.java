@@ -1,5 +1,6 @@
 package com.youcode.mypet.DTO;
 
+import com.youcode.mypet.Entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +15,5 @@ public class PostDTO {
     private int num_days;
     private String images;
     private float price;
-    private int user_id;
+    private UserEntity user;
 }

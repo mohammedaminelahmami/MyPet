@@ -4,12 +4,13 @@ import com.youcode.mypet.DTO.CommentDTO;
 import com.youcode.mypet.DTO.mapper.IMapperDto;
 import com.youcode.mypet.Entity.CommentEntity;
 import com.youcode.mypet.Entity.PostEntity;
+import com.youcode.mypet.Entity.UserEntity;
 import com.youcode.mypet.Repository.CommentRepository;
 import com.youcode.mypet.Repository.PostRepository;
+import com.youcode.mypet.Repository.UserRepository;
 import com.youcode.mypet.Request.CommentRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,16 +25,29 @@ public class CommentService {
     PostRepository postRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     IMapperDto<CommentDTO, CommentEntity> mapper;
 
-    public void createComment(CommentRequest commentRequest, Long id) throws Exception {
+    public void createComment(CommentRequest commentRequest, Long id, Long idUser) throws Exception {
         try {
             CommentDTO commentDTO = new CommentDTO();
             BeanUtils.copyProperties(commentRequest, commentDTO);
+
             CommentEntity comment = mapper.convertToEntity(commentDTO, CommentEntity.class);
 
             Optional<PostEntity> post = postRepository.findById(id);
+            Optional<UserEntity> user = userRepository.findById(idUser);
 
+            if(user.isPresent())
+            {
+                comment.setUser(user.get());
+            }
+            else
+            {
+                throw new Exception("User not found");
+            }
             if(post.isPresent()) {
                 comment.setPost(post.get());
             }else{
@@ -76,10 +90,20 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> getAllComment(int page, int limit) {
-        if(page > 0) page--;
-        List<CommentEntity> comments = commentRepository.findAll(PageRequest.of(page, limit)).getContent();
+    public List<CommentDTO> getAllCommentById(Integer id) {
+        List<CommentEntity> comments = (List<CommentEntity>) commentRepository.findByPostId(id);
         List<CommentDTO> postDTOS = mapper.convertListToListDto(comments, CommentDTO.class);
         return postDTOS;
+    }
+
+    public void verifyComment(Long id) throws Exception {
+        Optional<CommentEntity> comment = commentRepository.findById(id);
+
+        if(comment.isPresent()) {
+            comment.get().setComment_isVerified(true);
+            commentRepository.save(comment.get());
+        }else{
+            throw new Exception("id not valid");
+        }
     }
 }

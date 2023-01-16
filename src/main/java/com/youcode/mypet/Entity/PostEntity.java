@@ -1,10 +1,10 @@
 package com.youcode.mypet.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter
@@ -32,7 +32,8 @@ public class PostEntity {
     @Column(name = "num_days")
     private int num_days;
 
-    @Column(name = "images")
+    @Lob
+    @Column(name = "images", columnDefinition="TEXT", length = 2048)
     private String images;
 
     @Column(name = "price")
@@ -43,6 +44,7 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "post")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 }

@@ -18,10 +18,10 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/comment/{id}")
+    @PostMapping("/comment/{id}/{idUser}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@PathVariable String id, @RequestBody @Valid CommentRequest commentRequest) throws Exception {
-        commentService.createComment(commentRequest, Long.parseLong(id));
+    public void save(@PathVariable String id, @PathVariable String idUser, @RequestBody @Valid CommentRequest commentRequest) throws Exception {
+        commentService.createComment(commentRequest, Long.parseLong(id), Long.parseLong(idUser));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -36,15 +36,22 @@ public class CommentController {
         commentService.updateComment(Long.parseLong(id), commentRequest);
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/comments/verified/{id}")
+    public void getAllById(@PathVariable String id) throws Exception {
+        commentService.verifyComment(Long.parseLong(id));
+    }
+
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/comments/{id}")
+    @GetMapping("/comment/{id}")
     public CommentDTO getOne(@PathVariable String id) throws Exception {
         return commentService.getOneComment(Long.parseLong(id));
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/comments")
-    public List<CommentDTO> getAll(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "limit", defaultValue = "8") int limit) {
-        return commentService.getAllComment(page, limit);
+    @GetMapping("/comments/{id}")
+    public List<CommentDTO> getAllById(@PathVariable Integer id) {
+        return commentService.getAllCommentById(id);
     }
+
 }

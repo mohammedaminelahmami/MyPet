@@ -1,0 +1,54 @@
+<div *ngIf="toggleClickOffer" class="flex flex-col gap-4">
+  <div
+    *ngFor="let offer of allOffers; let i = index"
+    class="flex ml-8 p-2 bg-gray-300 rounded-md"
+    style="width: 90%"
+    [ngClass]="{'bg-blue-300' : offer.comment_isVerified}"
+  >
+    <div class="flex justify-between items-center gap-6">
+      <div
+        class="flex justify-between gap-3 items-center whitespace-nowrap my-4"
+      >
+        <button
+          type="button"
+          class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+          id="user-menu-button"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span class="sr-only">Open user menu</span>
+          <img
+            class="h-8 w-8 rounded-full"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+          />
+        </button>
+
+        <div class="flex items-center">
+          <div class="text-gray-800">
+            <span class="font-semibold">{{ offer.user.username }} : </span>
+            <span class="text-sm">{{ offer.comment_body }}</span>
+          </div>
+
+          <div *ngIf="offer.user.id_user == userId" (click)="deleteOffer(offer.id_comment)" class="absolute text-sm text-black cursor-pointer font-semibold text-red-500" style="right: 29%"><i class="material-icons">delete</i></div>
+
+          <div *ngIf="postId === offer.post.id_post">
+            <div *ngIf="offer.user.id_user != userId" (click)="verifyOffer(offer.id_comment)" class="absolute text-sm text-black cursor-pointer font-semibold text-green-500" style="right: 29%"><i class="material-icons text-blue-700">verified</i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Offer Locked -->
+<div *ngIf="checkPostIsVerified">
+  <div class="flex items-center mt-4 gap-2 text-sm font-semibold"><i class="material-icons text-primary">lock_outline</i> Offer Locked</div>
+</div>
+<!--Offer Locked -->
+
+<!-- create offer -->
+<div *ngIf="!checkPostIsVerified" class="my-2">
+  <app-comment [postIdFromComment]="postId" (callParent)="recallAfterChanges()"></app-comment>
+</div>
+<!-- create offer -->

@@ -1,0 +1,142 @@
+<div *ngFor="let post of allposts; let i = index">
+  <!-- Posts -->
+  <div class="mt-8 flex justify-between gap-36 items-center w-full">
+    <div class="flex justify-between items-center gap-6">
+      <div
+        class="flex justify-between gap-3 items-center whitespace-nowrap my-4"
+      >
+        <button
+          type="button"
+          class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+          id="user-menu-button"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span class="sr-only">Open user menu</span>
+          <img
+            class="h-8 w-8 rounded-full"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+          />
+        </button>
+        <div class="text-gray-800">{{ post.user.username }}</div>
+      </div>
+      <div class="text-sm text-gray-500">Jan. 16, 2022</div>
+    </div>
+
+    <div class="relative">
+      <div (click)="toggleHandler(i)" id="openModalDiv">
+        <div
+          *ngIf="post.user.id_user == userId"
+          class="justify-center p-2 rounded cursor-pointer text-gray-900 bg-gray-100"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">list</span>
+        </div>
+      </div>
+
+      <div
+        *ngIf="toggle[i]"
+        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="user-menu-button"
+        tabindex="-1"
+      >
+        <div
+          (click)="toggleModalF(i, post.id_post)"
+          href="#"
+          class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
+          role="menuitem"
+          tabindex="-1"
+          id="editpost"
+        >
+          Edit Post
+        </div>
+        <div
+          (click)="deletePost(post.id_post, i)"
+          href="#"
+          class="cursor-pointer block px-4 py-2 text-sm text-gray-700"
+          role="menuitem"
+          tabindex="-1"
+          id="user-menu-item-0"
+        >
+          Delete Post
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray-100 rounded-md p-2">
+    <h6 class="text-xl font-semibold">{{ post.title }}</h6>
+    <!-- post_body -->
+    <div class="mx-2" style="width: 50rem">
+      <h6 class="p-2 text-sm">
+        {{ post.description }}
+      </h6>
+    </div>
+    <!-- post_body -->
+
+    <!-- post_images -->
+    <div class="w-full flex gap-4 p-2 justify-start items-center ml-2">
+      <div class="w-36 h-36">
+        <img [src]="post.images" alt="dog2" class="w-full h-full rounded-md"/>
+      </div>
+      <!-- post_images -->
+
+      <div class="ml-10 flex justify-center items-center gap-16">
+        <div class="flex items-center gap-2">
+          <div class="font-semibold text-2xl">{{ post.price }}</div>
+          <div>
+            <div class="material-icons text-green-600 w-10"><img src="assets/imgs/money.png" alt="money"/></div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="font-semibold text-2xl">{{ post.num_days }}</div>
+          <div>
+            <div class="material-icons text-green-600 w-10"><img src="assets/imgs/day-and-night.png" alt="days"/></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- modalEdit -->
+      <div class="content z-50">
+        <app-modal-edit-post
+          [modalToggle]="toggleModal[i]"
+          (callParent)="toggleModalF(i, post.id_post)"
+        ></app-modal-edit-post>
+      </div>
+      <!-- modalEdit -->
+    </div>
+
+    <div
+      (click)="commentHandler(i)"
+      class="flex gap-2 text-gray-400 mt-4 ml-4 hover:underline"
+    >
+      <div><i class="material-icons cursor-pointer">mode_comment</i></div>
+      <div class="text-sm font-semibold cursor-pointer">Offers</div>
+    </div>
+    <!-- Posts -->
+
+    <!-- get All Offers -->
+    <app-offer
+      [postId]="post.id_post"
+      [toggleClickOffer]="toggleOffer[i]"
+    ></app-offer>
+    <!-- get All Offers -->
+  </div>
+</div>

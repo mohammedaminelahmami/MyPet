@@ -29,10 +29,10 @@ public class PostService {
     public void createPost(PostRequest postRequest, Long id) throws Exception {
         try {
             PostDTO postDTO = new PostDTO();
+
             BeanUtils.copyProperties(postRequest, postDTO);
             PostEntity post = mapper.convertToEntity(postDTO, PostEntity.class);
 
-            // user foreign key (obj User)
             Optional<UserEntity> user = userRepository.findById(id);
 
             if(user.isPresent()) {
